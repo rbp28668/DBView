@@ -1,0 +1,16 @@
+
+# old subversion folders
+**/.svn/
+
+# contents of build/deployment folders.
+bin/**
+deploy/**
+build/**
+
+# any extension jars
+extensions/*.jar
+
+# class files
+*.class
+
+
