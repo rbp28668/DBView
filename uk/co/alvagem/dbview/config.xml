@@ -1,0 +1,238 @@
+<DBView>
+	<!--=============================================================-->
+	<!-- Command Frame                                               -->
+	<!--=============================================================-->
+	<CommandFrame>
+		<menus>
+			<menu display="File" mnemonic="F">
+				<menuitem 	action="FileNew" 
+							display="New"
+							mnemonic="N"
+							accel="N"
+							accelmod="CTRL"/>
+				<menuitem 	action="FileOpen" 
+							display="Open"
+							mnemonic="O"
+							accel="O"
+							accelmod="CTRL"/>
+				<menuitem 	action="FileSave" 
+							display="Save"
+							mnemonic="S"
+							accel="S"
+							accelmod="CTRL"/>
+				<menuitem 	action="FileSaveAs" 
+							display="Save As"
+							mnemonic="A"/>
+				<separator/>
+				<menuitem 	action="FileProperties" 
+							display="Properties"
+							mnemonic="P"
+							accel="P"
+							accelmod="CTRL"/>
+				<separator/>
+				<menuitem 	action="FileExit" 
+							display="Exit"
+							mnemonic="X"/>
+			</menu>
+
+			<menu display="Notebook" mnemonic="N">
+				<menuitem 	action="NotebookShow" 
+							display="Show Notebook"
+							mnemonic="S"
+							/>
+			</menu>
+
+			<menu display="Plugins" mnemonic="P">
+				<menuitem 	action="AddPlugin" 
+							display="Add Plugin"
+							mnemonic="P"
+							/>
+			</menu>
+
+			<menu display="Window" mnemonic="W">
+				<menuitem 	action="WindowPLAFMetal" 
+							display="Metal Look and Feel"
+							mnemonic="M"
+							/>
+				<menuitem 	action="WindowPLAFMotif" 
+							display="Motif Look and Feel"
+							mnemonic="O"
+							/>
+				<menuitem 	action="WindowPLAFWindows" 
+							display="Windows Look and Feel"
+							mnemonic="W"
+							/>
+			</menu>
+			
+			<menu display="Help" mnemonic="H">
+				<menuitem 	action="HelpAbout" 
+							display="About"
+							mnemonic="A"
+							/>
+			</menu>
+			
+			
+		</menus>
+	</CommandFrame>
+	
+	<DatabaseExplorer>
+		<popups>
+			<popup name="Databases">
+				<menuitem 	action="AddDatabase" 
+							display="Add Database"
+							mnemonic="A"
+							/>
+			</popup>
+
+			<popup name="Database">
+				<menuitem 	action="RunQuery" 
+							display="Queries"
+							mnemonic="Q"
+							/>
+				<menuitem 	action="EditDatabase" 
+							display="Edit Database"
+							mnemonic="E"
+							/>
+							
+				<menuitem 	action="TestDatabase" 
+							display="Test Database"
+							mnemonic="T"
+							/>
+
+				<menuitem 	action="RemoveDatabase" 
+							display="Remove Database"
+							mnemonic="R"
+							/>
+				<menuitem 	action="DatabaseProperties" 
+							display="Database Properties"
+							mnemonic="P"
+							/>
+
+			    <!--
+				<menuitem 	action="ShowTables" 
+							display="Show Tables"
+							mnemonic="S"
+							/>
+			    -->
+							
+			</popup>
+		
+			<popup name="Table">
+				<menuitem 	action="TableProperties" 
+							display="Properties"
+							mnemonic="P"
+							/>
+				<menuitem 	action="TableIndices" 
+							display="Indices"
+							mnemonic="I"
+							/>
+				<menuitem 	action="TableForeignKeys" 
+							display="Foreign Keys"
+							mnemonic="F"
+							/>
+							
+							
+			</popup>
+		
+		</popups>
+		
+	</DatabaseExplorer>
+	
+	<QueryFrame>
+		<menus>
+			<menu display="Query" mnemonic="Q">
+				<menuitem 	action="RunQuery" 
+							display="Run Query"
+							mnemonic="R"
+							accel="R"
+							accelmod="CTRL"/>
+				<menuitem 	action="NewQuery" 
+							display="New Query"
+							mnemonic="N"/>
+				<menuitem 	action="RenameQuery" 
+							display="Rename Query"
+							mnemonic="E"/>
+				<menuitem 	action="DeleteQuery" 
+							display="Delete Query"
+							mnemonic="D"/>
+			</menu>
+
+			<menu display="Search" mnemonic="S">
+				<menuitem 	action="SearchResults" 
+							display="Search query results"
+							mnemonic="S"/>
+				<menuitem 	action="IndexQuery"
+							display="Index Query" 
+							mnemonic="I"/>
+				<menuitem 	action="BindToIndex"
+							display="Open Search Index" 
+							mnemonic="O"/>
+				<menuitem 	action="ShowIndexFields"
+							display="Show Index Fields" 
+							mnemonic="F"/>
+				<menuitem 	action="SelectResultFields"
+							display="Select Search Result Fields" 
+							mnemonic="R"/>
+				<separator/>
+							
+				<menuitem 	action="DetectDuplicates"
+							display="Detect Duplicates" 
+							mnemonic="D"/>
+				<menuitem 	action="EditDataReceivers"
+							display="Edit Duplicate Receivers" 
+							mnemonic="U"/>
+				<menuitem 	action="EditExclusions"
+							display="Edit Exclusion" 
+							mnemonic="E"/>
+				<menuitem 	action="SetDuplicatesCount"
+							display="Set Duplicates Max Records" 
+							mnemonic="M"/>
+				<menuitem 	action="SetDuplicatesThreshold"
+							display="Set Duplicates Threshold" 
+							mnemonic="T"/>
+				<menuitem 	action="SetDuplicatesPath"
+							display="Set Duplicates Output Path" 
+							mnemonic="P"/>
+				<menuitem 	action="SetDuplicatesRandomSelect"
+							display="Set Duplicates Random Select" 
+							mnemonic="R"/>
+							
+							
+			</menu>
+			
+			<menu display="Export" mnemonic="E">
+				<menuitem 	action="ExportCSV" 
+							display="Export to CSV"
+							mnemonic="C"/>
+				<menuitem 	action="ExportXML" 
+							display="Export to XML"
+							mnemonic="X"/>
+			</menu>
+		</menus>
+	
+	</QueryFrame>
+	
+	<NotebookEditor>
+		<menus>
+			<menu display="Notebook" mnemonic="N">
+				<menuitem 	action="NotebookGotoLine" 
+							display="Goto Line"
+							mnemonic="L"
+							accel="L"
+							accelmod="CTRL"/>
+				<menuitem 	action="NotebookClose" 
+							display="Close"
+							mnemonic="C"/>
+			</menu>
+		</menus>
+	</NotebookEditor>
+	
+	<!-- Add-ons for de-duplication -->
+	<DeDupe>
+		<EventReceiver
+			name = "CSV File"
+			class = "uk.co.alvagem.dbview.dedupe.FileDeDupeReceiver"
+		/>
+	</DeDupe>
+	
+</DBView>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="all" name="DBView">
+
+	<!-- Directories with source code & required libraries -->
+	<property name="src.dir" value="."/>
+	<property name="src.lib" value="Lib"/>
+	<property name="src.meta" value="META-INF"/>
+    <property name="src.drivers" value="drivers"/>
+	
+	<!-- Temporary build directories.  After a build these directories
+	- should contain a full, expanded web application that could be
+	- zipped & deployed.  The final deployment stage builds the war
+	- file and docs file from these directories
+	-->
+	<property name="build.dir" value="build"/>
+	<property name="build.classes" value="${build.dir}/classes"/>
+	<property name="build.lib" value="${build.dir}/lib"/>
+	<property name="build.docs" value="${build.dir}/docs"/>
+	<property name="build.meta" value="${build.dir}/META-INF"/>
+	<property name="build.drivers" value="${build.dir}/drivers"/>
+	
+	<!-- Deployment directories -->
+	<property name="deploy.dir" value="deploy"/>
+	
+	<!-- Java classpath -->
+	<path id="classpath">
+		<fileset dir="${src.lib}">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+	
+	<!--======================================================
+	== prepare creates any directories needed by the build
+	== process.
+	========================================================-->
+	<target name="prepare" description="Creates build and deployment directories">
+		<tstamp/>
+		<echo message = "Build ${TODAY} at ${TSTAMP}"/>
+
+		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${build.classes}"/>
+		<mkdir dir="${build.lib}"/>
+		<mkdir dir="${build.docs}"/>
+		<mkdir dir="${build.meta}"/>
+        <mkdir dir="${build.drivers}"/>
+		<mkdir dir="${deploy.dir}"/>
+	</target>
+
+	<!--======================================================
+	== clean deletes all generated files.  
+	========================================================-->
+	<target name="clean" description="Removes all generated files">
+		<delete dir="${build.dir}" quiet="true"/>
+		<delete dir="${deploy.dir}" quiet="true"/>
+	</target>
+
+	<!--======================================================
+	== compile compiles all the java source files
+	========================================================-->
+	<target name="compile" 
+		depends="prepare" 
+		description="Compiles all source">
+		<javac srcdir="${src.dir}" destdir="${build.classes}" source="1.6">
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
+	
+	<!--======================================================
+	== copylib copies the required libraries to the build
+	== directory.  
+	========================================================-->
+	<target name="copylib" depends="prepare">
+		<copy todir="${build.lib}">
+			<fileset dir="${src.lib}">
+				<include name="xercesImpl.jar"/>
+				<include name="serializer.jar"/>
+				<include name="xml-apis.jar"/>
+				<include name="xsltc.jar"/>
+				<include name="lucene-core-2.2.0.jar"/>
+			</fileset>
+		</copy>
+
+		<copy todir="${build.drivers}">
+			<fileset dir="${src.drivers}">
+				<include name="*.jar"/>
+			</fileset>
+		</copy>
+
+		<copy todir="${build.meta}">
+			<fileset dir="${src.meta}">
+				<include name="MANIFEST.MF"/>
+			</fileset>
+		</copy>
+		
+		<copy todir="${build.dir}">
+			<fileset dir="${src.dir}">
+				<include name="**/config.xml"/>
+				<include name="**/*.gif"/>
+			</fileset>
+		</copy>
+
+		<copy todir="${build.dir}">
+			<fileset dir="${src.dir}">
+				<include name="**/help/*.html"/>
+			</fileset>
+		</copy>
+		
+	</target>
+	
+
+	
+	<!--======================================================
+	== docs target: Builds Javadoc for the source 
+	========================================================-->
+	<target name="docs" depends="makejar">
+		<javadoc sourcepath="${src.dir}" destdir="${build.docs}" source="1.6" >
+			
+			<package name="uk.co.alvagem.dbview.*"/>
+			
+			<classpath>
+				
+				<fileset dir="${build.dir}">
+					<include name="DBView.jar"/>
+				</fileset>
+				
+				<fileset dir="${src.lib}">
+					<include name="**/*.jar"/>
+				</fileset>
+			</classpath>
+			
+			<doctitle>DBView</doctitle>
+			
+		</javadoc>
+	</target>
+
+	<!--======================================================
+	== deploydocs target: zips up the generated javadoc
+	== html files
+	========================================================-->
+	<target name="deploydocs" depends="docs">
+		<zip basedir="${build.docs}" zipfile="${deploy.dir}/DBViewDocs.zip">
+			<fileset dir="${build.docs}">
+				<include name="**/*.html"/>
+			</fileset>
+		</zip>
+	</target>
+	
+	<!--======================================================
+	== makejar builds the system into a jar file
+	========================================================-->
+	<target name="makejar" depends="compile,copylib">
+		<jar jarfile="${build.dir}/DBView.jar" manifest="${build.meta}/MANIFEST.MF">
+			<fileset dir="${build.classes}" includes="**/*.class">
+			</fileset>
+			<fileset dir="${build.dir}" includes="**/config.xml">
+			</fileset>
+			<fileset dir="${build.dir}" includes="**/*.gif">
+			</fileset>
+			<fileset dir="${build.dir}" includes="**/*.html">
+			</fileset>
+			
+		</jar>
+	</target>
+	
+	<!--======================================================
+	== deploy packages up the entire system for deployment.
+	========================================================-->
+	<target name="deploy" depends="makejar">
+		<zip destfile="${deploy.dir}/DBView.zip" description="DBView Installation">
+			<fileset dir="${build.dir}" includes="DBView.jar">
+			</fileset>
+			<fileset dir="${build.lib}" includes="**/*.jar">
+			</fileset>
+			<fileset dir="${build.dir}" includes="drivers/*.jar">
+			</fileset>
+		</zip>
+	</target>
+
+	<!--======================================================
+	== all compiles the source, builds the deployment file
+	== and documentation.
+	========================================================-->
+	<target name="all" 
+		depends="clean,deploy,deploydocs"
+		description="Builds complete system and docs from scratch">
+	</target>
+		
+
+</project>
